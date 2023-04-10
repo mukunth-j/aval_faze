@@ -59,9 +59,11 @@ class MapPageState extends State<MapPage> {
 
     await Future.delayed(const Duration(seconds: 1));
     final GoogleMapController controller = await _controller.future;
-    setState(() {
-      controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
-    });
+    if (mounted) {
+      setState(() {
+        controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
+      });
+    }
   }
 
   @override
@@ -75,27 +77,19 @@ class MapPageState extends State<MapPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black,
           centerTitle: true,
-          leading: null,
-          title: Container(
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.map,
-                  color: Colors.blue,
-                ),
-                SizedBox(width: 8),
-                Text(
-                  'Aval Map',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          title: Text(
+            'Aval Map',
+            style: TextStyle(
+                color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
         body: GoogleMap(
