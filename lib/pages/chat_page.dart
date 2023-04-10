@@ -14,7 +14,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: peachColor,
+      backgroundColor: Colors.white,
       bottomNavigationBar: _chatTextField(),
       body: Column(
         children: [
@@ -25,26 +25,41 @@ class _ChatPageState extends State<ChatPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 CircleAvatar(
-                  backgroundColor: greyColor,
-                  radius: 24,
-                  backgroundImage:
-                      const AssetImage('assets/image/female_police.jpg'),
+                  backgroundImage: AssetImage('assets/image/female_police.jpg'),
+                  radius: 24.0,
+                  backgroundColor: Colors.transparent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.green,
+                        width: 2.0,
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 18,
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     Text(
                       "Aval Help Center",
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       "Online",
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
                     )
                   ],
                 ),
@@ -64,7 +79,7 @@ class _ChatPageState extends State<ChatPage> {
               child: Container(
             height: double.infinity,
             decoration: const BoxDecoration(
-                color: Colors.white,
+                color: Colors.black,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30))),
@@ -83,11 +98,11 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _chatTextField() {
     return Container(
-      color: Colors.white,
+      color: Colors.black,
       padding: EdgeInsets.only(
           left: 20,
           right: 20,
-          top: 14,
+          top: 0,
           bottom: MediaQuery.of(context).viewInsets.bottom + 10),
       child: Container(
         height: 55,
@@ -104,7 +119,7 @@ class _ChatPageState extends State<ChatPage> {
                   hintStyle: TextStyle(fontSize: 16)),
             )),
             CircleAvatar(
-              backgroundColor: peachColor,
+              backgroundColor: Colors.pinkAccent,
               child: const Icon(
                 Icons.send,
                 color: Colors.white,

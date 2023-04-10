@@ -11,17 +11,15 @@ class MapPage extends StatefulWidget {
 
 class MapPageState extends State<MapPage> {
   Completer<GoogleMapController> _controller = Completer();
-  LatLng? _latLng = LatLng(28.6472799, 76.8130638);
+  LatLng? _latLng = LatLng(13.083421618380836, 80.27552518149295);
 
   CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(28.6289206, 77.2065322),
+    target: LatLng(13.083421618380836, 80.27552518149295),
     zoom: 14.4746,
   );
 
   static final CameraPosition _kavalpolice = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
+      target: LatLng(12.925496195332071, 80.1146503181399),
       zoom: 19.151926040649414);
 
   Future<void> getCurrentLocation() async {
@@ -59,9 +57,11 @@ class MapPageState extends State<MapPage> {
 
     await Future.delayed(const Duration(seconds: 1));
     final GoogleMapController controller = await _controller.future;
-    setState(() {
-      controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
-    });
+    if (mounted) {
+      setState(() {
+        controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
+      });
+    }
   }
 
   @override
@@ -75,27 +75,19 @@ class MapPageState extends State<MapPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black,
           centerTitle: true,
-          leading: null,
-          title: Container(
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.map,
-                  color: Colors.blue,
-                ),
-                SizedBox(width: 8),
-                Text(
-                  'Aval Map',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          title: Text(
+            'Aval Map',
+            style: TextStyle(
+                color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
         body: GoogleMap(
